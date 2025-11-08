@@ -1,0 +1,403 @@
+@font-face {
+    font-family: 'HeroLight';
+    src: url('./assets/fonts/HeroLight-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HeroLight';
+    src: url('./assets/fonts/HeroLight-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HeroLight';
+    src: url('./assets/fonts/HeroLight-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'HeroLight', sans-serif;
+    overflow-x: hidden;
+}
+
+.navbar {
+    background: #e2ffbd;
+}
+
+.growth-section {
+    background: #e2ffbd;
+    padding: 0 20px 60px;
+}
+
+
+.growth-heading {
+    font-size: 34px;
+    font-weight: normal;
+    line-height: 40px;
+    margin: 0;
+}
+.reveal-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.growth-highlight {
+    color: #a74fec;
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 70px;
+ position: relative;
+  display: inline-block;
+    z-index: 1;
+}
+
+.reveal-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff5d;
+  z-index: 2;
+  box-shadow: 0 0 20px 10px #9b51e051;
+  animation: mask-reveal-glow 3s ease-in-out infinite;
+}
+@keyframes mask-reveal-glow {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.growth-description {
+    font-size: 22px;
+    margin-bottom: 30px;
+    line-height: 32px;
+}
+
+.growth-btn {
+    background-color: #a74fec;
+    color: white;
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.growth-btn:hover {
+    background-color: #fff;
+    color: #a74fec;
+    border: 1px solid #c958f3;
+}
+
+.growth-img-wrapper {
+    position: relative;
+
+}
+
+.growth-img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.logo {
+    width: 200px;
+    height: auto;
+    margin: 30px 0 0;
+}
+
+
+.nashaty-section {
+    background-color: #a74fec;
+    color: white;
+    padding: 80px 20px;
+}
+
+.nashaty-title {
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 50px;
+}
+
+.nashaty-title span {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.nashaty-description {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.nashaty-image-container {
+    position: relative;
+    text-align: center;
+}
+
+.nashaty-image-frame {}
+
+.nashaty-image-frame img {
+    border-radius: 30px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    clip-path: polygon(25% 0%, 75% 0%,
+            100% 25%, 100% 75%,
+            75% 100%, 25% 100%,
+            0% 75%, 0% 25%);
+}
+
+
+
+.highlight {
+    font-weight: bold;
+}
+
+.vision-image {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    width: 200px;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.mission_wrapper,
+.vision_wrapper {
+    padding: 200px 90px;
+}
+
+.mission_wrapper h2,
+.vision_wrapper h2 {
+    font-size: 70px;
+    font-weight: bold;
+    line-height: 80px;
+    color: #000;
+}
+
+.mission_wrapper p,
+.vision_wrapper p {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 38px;
+    color: #000;
+}
+
+
+.founder-section {
+    background-color: #f85646;
+    color: white;
+    position: relative;
+}
+
+.founder-img-wrapper {
+    text-align: center;
+}
+
+.founder-section h6 {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+    line-height: 28px;
+}
+
+.founder-section h2 {
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 70px;
+}
+
+.founder-section p {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
+    margin-bottom: 40px;
+}
+
+.match-container {
+  width: 100%;
+  padding: 0; 
+  margin: 0;   
+}
+
+.modal-header{
+    color: #fff;
+    background: #a74fec;
+}
+
+.modal-body{
+    background: #e2ffbd;
+}
+
+.form-control{
+        border: 1px solid #c958f329;
+    background: #e3ffbc3b;
+    height: 45px;
+}
+.close-icon{
+        float: right;
+    position: absolute;
+    right: 20px;
+    width: 20px;
+}
+
+.form-label{
+        margin-bottom: .5rem;
+    font-family: 'HeroLight';
+    font-size: 15px;
+}
+
+.modal-body button{
+        background-color: #a74fec !important;
+    color: white;
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+
+/* FOOTER SECTION */
+.footer-section {
+    padding: 120px 20px;
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-section h3 {
+    font-size: 39px;
+    font-weight: bold;
+}
+
+.footer-section h5 {
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.footer-section li {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#typing-text::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.icon-circle {
+    width: 62px;
+    height: 62px;
+
+}
+
+.icon-circle:hover {
+    animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .footer-section{
+        padding: 40px 0 20px;
+    }
+    .footer-section h3{
+        font-size: 30px;
+    }
+    .logo_wrapper{
+        margin:  0 auto;
+    }
+
+    .mission_wrapper, .vision_wrapper{
+        padding: 60px 20px 0;
+    }
+
+    .growth-heading {
+        font-size: 30px;
+    }
+
+    .growth-highlight {
+        font-size: 4rem;
+    }
+
+    
+    .nashaty-title {
+       font-size: 21px;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .nashaty-title span {
+        font-size: 2rem;
+    }
+
+    .nashaty-description {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .section-title,
+    .section-text {
+        text-align: center;
+    }
+
+    .vision-image {
+        position: static;
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

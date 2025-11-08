@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Nashaty – The Hub for Kids Growth</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css?v=3.1">
+    <!-- Animate on Scroll (AOS) CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container flex-column flex-lg-row text-center">
+    <div class="logo_wrapper mb-3 mb-lg-0">
+      <img src="./assets/images/logo.png" alt="logo" class="logo" />
+    </div>
+    <div class="ms-lg-auto">
+      <a href="parent-register.php" class="btn btn-primary" style="background: #a74fec; color: white; margin-right: 10px; border-style: none;">Parent Portal</a>
+      <a href="partner-register.php" class="btn btn-primary" style="background: #6abaed; color: white; margin-right: 10px; border-style: none;">Partner Login</a>
+    </div>
+  </div>
+</nav>
+
+    
+    <!-- Main Content -->
+    <section class="growth-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!-- Left Content -->
+                <div class="col-md-6 text-center text-md-start">
+                    <h2 class="growth-heading">The Hub for Kids’</h2>
+                    <div class="reveal-wrapper">
+                        <h1 class="growth-highlight">GROWTH</h1>
+                    </div>
+                    <p class="growth-description">
+                        Transforming Free Time into Purposeful Growth
+                    </p>
+                    <a href="javascript:void(0)" class="btn growth-btn" data-bs-toggle="modal"
+                        data-bs-target="#reachOutModal">Reach Out</a>
+                </div>
+
+                <!-- Right Image -->
+                <div class="col-md-6">
+                    <div class="growth-img-wrapper">
+                        <img src="./assets/images/hero-top-2.png" class="img-fluid" alt="Growth Image" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MODAL POPUP -->
+    <div class="modal fade" id="reachOutModal" tabindex="-1" aria-labelledby="reachOutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reachOutModalLabel">Contact Us</h5>
+                    <img src="./assets/images/close.png" alt="Close Icon" class="close-icon" data-bs-dismiss="modal"
+                        aria-label="Close" />
+
+                </div>
+
+            <div class="modal-body">
+    <form id="contactForm" class="needs-validation" novalidate>
+        <div id="formContent">
+            <div class="mb-3">
+                <label for="userName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="userName" name="name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="mb-3">
+                <label for="userEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="userEmail" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="mb-3">
+    <label for="userMobile" class="form-label">Mobile</label>
+    <input type="tel" class="form-control" id="userMobile" name="mobile" pattern="[0-9]{8,}" required>
+    <div class="invalid-feedback">Please enter at least 8 digits.</div>
+</div>
+
+           <div class="mb-3">
+    <label for="userComments" class="form-label">Comments (Optional)</label>
+    <textarea class="form-control" id="userComments" name="comments" rows="3"></textarea>
+    <div class="invalid-feedback">Please enter your comments.</div>
+</div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+        <div id="thankYouMessage" style="display: none; text-align: center;">
+            <h5 class="text-success">Thank you!</h5>
+            <p>Your message has been sent successfully.</p>
+        </div>
+    </form>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- WHAT IS Nashaty SECTION -->
+    <section class="nashaty-section" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container">
+            <div class="row align-items-center text-white g-4">
+                <!-- Left Column -->
+                <div class="col-md-3 text-start">
+                    <h2 class="nashaty-title">
+                        What is <br /><span>Nashaty?</span>
+                    </h2>
+                </div>
+
+                <!-- Middle Image -->
+                <div class="col-md-6 text-center">
+                    <div class="nashaty-image-container">
+                        <div class="nashaty-image-frame">
+                            <img src="./assets/images/natashy-center.png" class="img-fluid" alt="Children Running" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-3 text-md-start text-center">
+                    <p class="nashaty-description">
+                        Nashaty was created to solve a fundamental problem for modern parents: how to help their
+                        children grow in a world full of digital distractions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MISSION & VISION SECTION -->
+    <section class="mission_vision" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container-fluid"> <!-- remove padding -->
+            <div class="row no-gutters"> <!-- no-gutters to remove spacing -->
+                <div class="col-md-6 mission_wrapper text-white d-flex"
+                    style="background-color:#6abaed;">
+                    <div class="container py-5"> <!-- Use container inside -->
+                        <h2 class="section-title mb-4">Mission</h2>
+                        <p class="section-text">
+                           To be the one central place families in the <span class="highlight"> MENA region </span>  turn to enrich their children's time, empowering parents to discover high-quality opportunities, build skills, and celebrate the unique journey of childhood
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 vision_wrapper d-flex" style="background-color: #e2ffbd;">
+                    <div class="container py-5">
+                        <h2 class="section-title mb-4">Vision</h2>
+                        <p class="section-text">
+                            Helping parents to turn their children's free time into developmental opportunities
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER SECTION -->
+    <section class="founder-section py-5" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Text Column -->
+                <div class="col-md-5 text-white">
+                    <h6>Message from the</h6>
+                    <h2 class="fw-bold mb-4" style="font-size: 3rem;">Founder</h2>
+                    <p style="font-size: 1.2rem;">
+                        Youth and children are the most valuable asset of any society. If Nashaty can make a difference in the life of even one child — by bringing them closer to their dream or unlocking their hidden potential — then as a founder, I have fulfilled my purpose.
+
+                    </p>
+                    
+                 
+                </div>
+
+                <!-- Image Column -->
+                <div class="col-md-7">
+                    <div class="founder-img-wrapper">
+                        <img src="./assets/images/founder.png" alt="Founder" class="img-fluid" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER SECTON START HERE -->
+    <footer class="footer-section" style="background-color: #E5FFB7;" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container">
+            <div class="row align-items-end">
+                <!-- Left Content -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h3><span id="typing-text"></span></h3>
+                    <h5>we’re here to support</h5>
+
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-center">
+                            <div class="icon-circle me-3">
+                                <img src="./assets/images/web.png" alt="Email Icon" class="img-fluid" />
+                            </div>
+                            <span>ceo@nashaty.net</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center d-none">
+                            <div class="icon-circle me-3">
+                                <img src="./assets/images/phone.png" alt="Phone Icon" class="img-fluid" />
+                            </div>
+                            <span>+974 7021 4660</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <div class="icon-circle me-3">
+                                <img src="./assets/images/map.png" alt="Phone Icon" class="img-fluid" />
+                            </div>
+                            <span>Doha, Qatar</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Logo -->
+                <div class="col-md-6 text-md-end text-center">
+                    <img src="./assets/images/logo.png" alt="Nashaty Logo" class="img-fluid"
+                        style="max-width: 250px;" />
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap JS Bundle (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Animate on Scroll (AOS) JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="main.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+   <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const form = this;
+
+        // Trigger Bootstrap validation
+        if (!form.checkValidity()) {
+            form.classList.add("was-validated");
+            return; // Stop if form is invalid
+        }
+
+        const formData = new FormData(form);
+
+        fetch("submit-form.php", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "success") {
+                    document.getElementById("formContent").style.display = "none";
+                    document.getElementById("thankYouMessage").style.display = "block";
+                } else {
+                    alert("Error: " + data);
+                }
+            })
+            .catch(error => {
+                alert("Request failed: " + error);
+            });
+    });
+</script>
+
+</body>
+
+</html>

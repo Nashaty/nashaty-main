@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .registration-wrapper {
             min-height: 100vh;
             background: linear-gradient(135deg, #6abaed 0%, #a74fec 100%);
+            /* background-color: #E2FFBD; */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         .registration-card {
-            background: white;
+            background: #E2FFBD;
             border-radius: 20px;
             padding: 30px 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -322,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="info-box">
                     <strong>📝 Registration Process:</strong>
-                    <p class="mb-0 small">Submit your details below. Once approved by admin, you'll receive a link to complete your registration and access the partner portal.</p>
+                    <p class="mb-0 small">Fill in the details and once filtered and approved you will receive a link to complete the registration.</p>
                 </div>
 
                 <?php if ($error): ?>
@@ -331,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <form method="POST" action="" id="registrationForm" novalidate>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Activity Center Name / Contact Person *</label>
+                        <label for="name" class="form-label">Center Name / Contact Person *</label>
                         <input type="text" class="form-control" id="name" name="name" required minlength="3">
                         <div class="invalid-feedback">Name must be at least 3 characters long.</div>
                     </div>
@@ -348,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <button type="submit" class="btn submit-btn w-100">
-                        Submit Registration
+                        Submit
                     </button>
 
                     <div class="text-center mt-3">

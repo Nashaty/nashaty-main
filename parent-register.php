@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         .registration-card {
-            background: white;
+            background: #E2FFBD;
             border-radius: 20px;
             padding: 30px 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -276,7 +276,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php else: ?>
                 <div class="text-center mb-4">
                     <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
-                    <h2 class="mt-3">Parent Registration</h2>
+                    <h1 class="mt-2">Start Your Journey</h1>
+                    <h2 class="mt-2">Register your interest </h2>
                 </div>
                 
                 <?php if ($error): ?>

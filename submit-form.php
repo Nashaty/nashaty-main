@@ -34,3 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'Invalid request method.';
 }
 ?>
+
+
+<!-- <div class="reachout-box" style="width: 290px; text-align: center;">
+                        <a href="javascript:void(0)" class="btn growth-btn" data-bs-toggle="modal"
+                            data-bs-target="#reachOutModal">
+                            Reach Out
+                        </a>
+
+                        <div class="button-row ms-lg-auto mt-3" style="display: flex; justify-content: space-between;">
+                            <a href="parent-register.php" class="btn growth-btn"
+                                style="background: #a74fec; color: white; border-style: none;">Parents</a>
+                            <a href="partner-register.php" class="btn growth-btn"
+                                style="background: #6abaed; color: white; border-style: none;">Partners</a>
+                        </div>
+                        <a href="https://wa.me/97433793376" target="_blank" class="btn growth-btn mt-3">
+                            Get in touch via call
+                        </a>
+                    </div> -->

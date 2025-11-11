@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-card">
             <div class="text-center mb-4">
                 <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
-                <h2 class="mt-3">Partner Login</h2>
+                <h2 class="mt-3">Register your interest </h2>
             </div>
             
             <?php if ($error): ?>

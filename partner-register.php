@@ -52,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .registration-wrapper {
             min-height: 100vh;
             background: linear-gradient(135deg, #6abaed 0%, #a74fec 100%);
-            /* background-color: #E2FFBD; */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background: #E2FFBD;
             border-radius: 20px;
             padding: 30px 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             max-width: 550px;
             width: 100%;
         }
@@ -79,12 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 1rem;
         }
         
-        .registration-card .text-muted {
-            font-size: 0.9rem;
-        }
-        
-        .success-card { 
-            text-align: center; 
+        .success-card {
+            text-align: center;
         }
         
         .success-icon {
@@ -96,6 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .success-card h2 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+        
+        .success-card p {
+            font-size: 0.95rem;
         }
         
         .success-card .alert h5 {
@@ -140,6 +139,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 0.75rem;
         }
         
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+        
+        .text-center a {
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+        .registration-card h4 {
+                font-size: 1rem;
+                color: #a74fec;
+                margin-top:1rem;
+                font-weight: medium;
+            }
         .submit-btn {
             background: #6abaed;
             color: white;
@@ -167,7 +184,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             .registration-card h2 {
+                font-size: 2.25rem;
+            }
+
+            .registration-card h4 {
                 font-size: 1.75rem;
+                color: #a74fec;
+                margin-top:1rem;
+                font-weight: medium;
             }
             
             .success-icon {
@@ -177,6 +201,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             .success-card h2 {
                 font-size: 1.75rem;
+            }
+            
+            .success-card p {
+                font-size: 1rem;
             }
             
             .success-card .alert h5 {
@@ -193,7 +221,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 font-size: 0.95rem;
             }
             
-            .registration-card .text-muted {
+            .form-label {
+                font-size: 1rem;
+            }
+            
+            .text-center a {
                 font-size: 1rem;
             }
         }
@@ -215,10 +247,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             .success-icon {
                 font-size: 50px;
+                margin-bottom: 12px;
+            }
+
+            .registration-card h4 {
+                font-size: 1rem;
+                color: #a74fec;
+                margin-top:1rem;
+                font-weight: medium;
             }
             
             .success-card h2 {
                 font-size: 1.25rem;
+            }
+            
+            .success-card p {
+                font-size: 0.9rem;
             }
             
             .info-box {
@@ -242,6 +286,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .success-card ol {
                 font-size: 0.85rem;
                 padding-left: 1rem;
+            }
+            
+            .text-center a {
+                font-size: 0.9rem;
             }
         }
         
@@ -288,8 +336,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        /* Ensure proper word wrapping for long text */
-        .alert, .info-box, .form-label {
+        /* Ensure proper word wrapping */
+        .alert, .success-card p, .info-box {
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
@@ -317,8 +365,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php else: ?>
                 <div class="text-center mb-4">
                     <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
-                    <h2 class="mt-3">Partner Registration</h2>
-                    <p class="text-muted">Join Nashaty as an Activity Center Partner</p>
+                    <h2 class="mt-3 text-black">Partner Registration</h2>
+                    <h4 class="">Join Nashaty as an Activity Center Partner</h4>
                 </div>
 
                 <div class="info-box">
@@ -330,39 +378,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?>
 
-                <form method="POST" action="" id="registrationForm" novalidate>
+                <form id="registrationForm" method="POST" action="" novalidate>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Center Name / Contact Person *</label>
-                        <input type="text" class="form-control" id="name" name="name" required minlength="3">
-                        <div class="invalid-feedback">Name must be at least 3 characters long.</div>
+                        <label for="name" class="form-label">Center Name / Contact Person</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="invalid-feedback">Please enter at least 3 characters.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Address *</label>
+                        <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                         <div class="invalid-feedback">Please enter a valid email address.</div>
-                        <small class="text-muted">You'll use this email to login</small>
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number *</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required maxlength="15">
-                        <div class="invalid-feedback">Please enter a valid phone number (only digits).</div>
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                        <div class="invalid-feedback">Please enter a valid phone number (8–15 digits).</div>
                     </div>
-
-                    <button type="submit" class="btn submit-btn w-100">
-                        Submit
-                    </button>
-
+                    <button type="submit" class="btn growth-btn w-100">Register</button>
                     <div class="text-center mt-3">
                         <small>Already have an account? <a href="partner-login.php">Login here</a></small><br>
-                        <a href="index.html" class="text-muted small">Back to Home</a>
+                        <a href="index.html">Back to Home</a>
                     </div>
                 </form>
             <?php endif; ?>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
     // Bootstrap form validation + live name/phone behavior
     (function () {
@@ -394,6 +436,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (nameInput.value.trim().length < 3) {
                 nameInput.classList.add('is-invalid');
                 isValid = false;
+            } else {
+                nameInput.classList.remove('is-invalid');
             }
 
             // Phone validation pattern

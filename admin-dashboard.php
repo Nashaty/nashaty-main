@@ -457,9 +457,9 @@ $conn->close();
                                                 data-location3="<?php echo htmlspecialchars($form['location3']); ?>"
                                                 data-location4="<?php echo htmlspecialchars($form['location4']); ?>"
                                                 data-website="<?php echo htmlspecialchars($form['website']); ?>"
+                                                data-price-day="<?php echo htmlspecialchars($form['price_day']); ?>"
+                                                data-price-week="<?php echo htmlspecialchars($form['price_week']); ?>"
                                                 data-price-month="<?php echo htmlspecialchars($form['price_month']); ?>"
-                                                data-price-term="<?php echo htmlspecialchars($form['price_term']); ?>"
-                                                data-price-year="<?php echo htmlspecialchars($form['price_year']); ?>"
                                                 data-trial="<?php echo htmlspecialchars($form['free_trial']); ?>"
                                                 data-social="<?php echo htmlspecialchars($form['social_post']); ?>">
                                                 View Details
@@ -846,15 +846,15 @@ $conn->close();
                         <div class="pricing-cards">
                             <div class="pricing-card">
                                 <div class="pricing-label">Per Month</div>
-                                <div class="pricing-amount">${data.priceMonth}</div>
+                                <div class="pricing-amount">${data.priceDay}</div>
                             </div>
                             <div class="pricing-card" style="background: linear-gradient(135deg, #6abaed 0%, #4a9ad5 100%);">
                                 <div class="pricing-label">Per Term</div>
-                                <div class="pricing-amount">${data.priceTerm}</div>
+                                <div class="pricing-amount">${data.priceWeek}</div>
                             </div>
                             <div class="pricing-card" style="background: linear-gradient(135deg, #f85646 0%, #d9453a 100%);">
                                 <div class="pricing-label">Per Year</div>
-                                <div class="pricing-amount">${data.priceYear}</div>
+                                <div class="pricing-amount">${data.priceMonth}</div>
                             </div>
                         </div>
                         <div class="detail-item" style="margin-top: 20px;">

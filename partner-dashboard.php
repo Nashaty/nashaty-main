@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
     $center_name = sanitizeInput($_POST['center_name']);
     $contact_person = sanitizeInput($_POST['contact_person']);
     $contact_email = sanitizeInput($_POST['contact_email']);
-    $contact_phone = sanitizeInput($_POST['partner_phone']);
+    $contact_phone = sanitizeInput($_POST['contact_phone']);
     $description = sanitizeInput($_POST['description']);
 
     // Activities
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
     $website = sanitizeInput($_POST['website'] ?? '');
 
     // Pricing
+    $price_day = sanitizeInput($_POST['price_day'] ?? '');
+    $price_week = sanitizeInput($_POST['price_week'] ?? '');
     $price_month = sanitizeInput($_POST['price_month'] ?? '');
-    $price_term = sanitizeInput($_POST['price_term'] ?? '');
-    $price_year = sanitizeInput($_POST['price_year'] ?? '');
     $free_trial = sanitizeInput($_POST['free_trial'] ?? 'No');
 
     // Terms
@@ -72,17 +72,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
             partner_id, center_name, contact_person, contact_email, contact_phone, 
             description, activities_offered, age_groups, gender, 
             class_days, class_timings, location1, location2, location3, location4, 
-            website, price_month, price_term, price_year, free_trial, 
+            website, price_day, price_week, price_month, free_trial, 
             terms_ack, social_post, confidentiality_ack
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
     
     $stmt->bind_param(
-        "isssssssssssssssssssissi",
+        "issssssssssssssssssissi",
         $partner_id, $center_name, $contact_person, $contact_email, $contact_phone,
         $description, $activities_offered, $age_groups, $gender,
         $class_days, $class_timings_json, $location1, $location2, $location3, $location4,
-        $website, $price_month, $price_term, $price_year, $free_trial,
+        $website, $price_day, $price_week, $price_month, $free_trial,
         $terms_ack, $social_post, $confidentiality_ack
     );
 
@@ -714,7 +714,7 @@ $conn->close();
 <div class="text-center mb-4">
     <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
     <h2 class="mt-3">Partner Dashboard</h2>
-    <p class="text-muted">Welcome, <?php echo htmlspecialchars($_SESSION['partner_name']); ?></p>
+    <p class="text-muted">Welcome, <?php echo htmlspecialchars($_SESSION['contact_person']); ?></p>
 </div>
 
 <?php if ($success): ?>
@@ -803,7 +803,7 @@ $conn->close();
         <div class="mb-4">
             <label class="form-label">Contact Number *</label>
             <input type="tel" class="form-control" name="contact_phone" id="contact_phone" required pattern="[0-9+\-\s]{7,15}"
-                value="<?php echo htmlspecialchars($_SESSION['partner_phone']); ?>"
+                value="<?php echo htmlspecialchars($_SESSION['contact_phone']); ?>"
             >
             <div class="error-message" id="error_contact_phone">Please enter a valid phone number (7-15 digits)</div>
         </div>
@@ -942,20 +942,20 @@ $conn->close();
         <div class="form-row mb-4">
             <div>
                 <label class="form-label">Price Per Day *</label>
-                <input type="text" class="form-control" name="price_month" id="price_month" placeholder="e.g., 500 QAR" required>
+                <input type="number" class="form-control" name="price_day" id="price_day" placeholder="e.g., 500 QAR" required>
                 <div class="error-message" id="error_price_month">Please enter daily price</div>
             </div>
             <div>
                 <label class="form-label">Price Per Week *</label>
-                <input type="text" class="form-control" name="price_term" id="price_term" placeholder="e.g., 1400 QAR" required>
-                <div class="error-message" id="error_price_term">Please enter weekly price</div>
+                <input type="number" class="form-control" name="price_week" id="price_week" placeholder="e.g., 1400 QAR" required>
+                <div class="error-message" id="price_week">Please enter weekly price</div>
             </div>
         </div>
 
         <div class="mb-4">
             <label class="form-label">Price Per Month *</label>
-            <input type="text" class="form-control" name="price_year" id="price_year" placeholder="e.g., 5000 QAR" required>
-            <div class="error-message" id="error_price_year">Please enter monthly price</div>
+            <input type="number" class="form-control" name="price_month" id="price_month" placeholder="e.g., 5000 QAR" required>
+            <div class="error-message" id="price_month">Please enter monthly price</div>
         </div>
 
         <div class="mb-4">
@@ -1115,6 +1115,21 @@ function updateProgressSteps() {
     });
 }
 
+function validatePriceField(fieldId, errorMessage, errors) {
+    const field = document.getElementById(fieldId);
+    const value = field?.value.trim();
+
+    // Allow numbers with optional decimal point
+    const pricePattern = /^\d+(\.\d{1,2})?$/;
+
+    if (!value || !pricePattern.test(value)) {
+        markFieldError(fieldId);
+        errors.push(errorMessage);
+        return false;
+    }
+    return true;
+}
+
 // Update navigation buttons
 function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevBtn');
@@ -1164,11 +1179,11 @@ function validateSection(section) {
             break;
             
         case 4: // Pricing
-            isValid = validateField('price_month', 'Monthly price is required', errors) && isValid;
-            isValid = validateField('price_term', 'Term price is required', errors) && isValid;
-            isValid = validateField('price_year', 'Yearly price is required', errors) && isValid;
-            isValid = validateRadioGroup('free_trial', 'Free trial option must be selected', errors) && isValid;
-            break;
+    isValid = validatePriceField('price_day', 'Please enter a valid daily price', errors) && isValid;
+    isValid = validatePriceField('price_week', 'Please enter a valid weekly price', errors) && isValid;
+    isValid = validatePriceField('price_month', 'Please enter a valid monthly price', errors) && isValid;
+    isValid = validateRadioGroup('free_trial', 'Free trial option must be selected', errors) && isValid;
+    break;
             
         case 5: // Terms
             isValid = validateCheckbox('terms_ack', 'You must accept the terms and conditions', errors) && isValid;

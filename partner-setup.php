@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
             $_SESSION['center_name'] = $partner['center_name'];
             $_SESSION['contact_person'] = $partner['contact_person'];
             $_SESSION['partner_email'] = $partner['email'];
-            $_SESSION['partner_phone'] = $partner['phone'];
+            $_SESSION['contact_phone'] = $partner['phone'];
             header("Location: partner-dashboard.php");
             exit();
         } else {

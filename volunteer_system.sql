@@ -78,9 +78,9 @@ CREATE TABLE partner_forms (
     website VARCHAR(255),
 
     -- Pricing
+    price_day VARCHAR(50),
+    price_week VARCHAR(50),
     price_month VARCHAR(50),
-    price_term VARCHAR(50),
-    price_year VARCHAR(50),
     free_trial VARCHAR(10),
 
     -- Terms & Permissions

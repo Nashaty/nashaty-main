@@ -5,7 +5,8 @@ USE nashaty_db;
 -- Partners table
 CREATE TABLE partners (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    center_name VARCHAR(255) NOT NULL,
+    contact_person VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) DEFAULT NULL,
@@ -60,7 +61,6 @@ CREATE TABLE partner_forms (
 
     -- Activities & Importance
     activities_offered TEXT,
-    activity_importance TEXT,
 
     -- Age, Gender, Class Info
     age_groups VARCHAR(255),

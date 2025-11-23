@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = getDBConnection();
     
     // Get partner details
-    $stmt = $conn->prepare("SELECT name, email, phone FROM partners WHERE id = ? AND is_approved = 0");
+    $stmt = $conn->prepare("SELECT center_name, email, phone FROM partners WHERE id = ? AND is_approved = 0");
     $stmt->bind_param("i", $partner_id);
     $stmt->execute();
     $result = $stmt->get_result();

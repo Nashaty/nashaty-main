@@ -22,12 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
     $center_name = sanitizeInput($_POST['center_name']);
     $contact_person = sanitizeInput($_POST['contact_person']);
     $contact_email = sanitizeInput($_POST['contact_email']);
-    $contact_phone = sanitizeInput($_POST['contact_phone']);
+    $contact_phone = sanitizeInput($_POST['partner_phone']);
     $description = sanitizeInput($_POST['description']);
 
     // Activities
     $activities_offered = isset($_POST['activities_offered']) ? implode(', ', $_POST['activities_offered']) : '';
-    $activity_importance = sanitizeInput($_POST['activity_importance'] ?? '');
 
     // Age groups
     $age_groups = isset($_POST['age_groups']) ? implode(', ', $_POST['age_groups']) : '';
@@ -71,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
     $stmt = $conn->prepare("
         INSERT INTO partner_forms (
             partner_id, center_name, contact_person, contact_email, contact_phone, 
-            description, activities_offered, activity_importance, age_groups, gender, 
+            description, activities_offered, age_groups, gender, 
             class_days, class_timings, location1, location2, location3, location4, 
             website, price_month, price_term, price_year, free_trial, 
             terms_ack, social_post, confidentiality_ack
@@ -81,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$form_submitted) {
     $stmt->bind_param(
         "isssssssssssssssssssissi",
         $partner_id, $center_name, $contact_person, $contact_email, $contact_phone,
-        $description, $activities_offered, $activity_importance, $age_groups, $gender,
+        $description, $activities_offered, $age_groups, $gender,
         $class_days, $class_timings_json, $location1, $location2, $location3, $location4,
         $website, $price_month, $price_term, $price_year, $free_trial,
         $terms_ack, $social_post, $confidentiality_ack
@@ -778,14 +777,18 @@ $conn->close();
         
         <div class="mb-4">
             <label class="form-label">Centre Name *</label>
-            <input type="text" class="form-control" name="center_name" id="center_name" required>
+            <input type="text" class="form-control" name="center_name" id="center_name" required
+                value="<?php echo htmlspecialchars($_SESSION['center_name']); ?>"
+            >
             <div class="error-message" id="error_center_name">Please enter the centre name</div>
         </div>
         
         <div class="form-row mb-4">
             <div>
                 <label class="form-label">Authorised Person Name *</label>
-                <input type="text" class="form-control" name="contact_person" id="contact_person" required>
+                <input type="text" class="form-control" name="contact_person" id="contact_person" required
+                    value="<?php echo htmlspecialchars($_SESSION['contact_person']); ?>"
+                >
                 <div class="error-message" id="error_contact_person">Please enter the contact person name</div>
             </div>
             <div>
@@ -799,7 +802,9 @@ $conn->close();
         
         <div class="mb-4">
             <label class="form-label">Contact Number *</label>
-            <input type="tel" class="form-control" name="contact_phone" id="contact_phone" required pattern="[0-9+\-\s]{7,15}">
+            <input type="tel" class="form-control" name="contact_phone" id="contact_phone" required pattern="[0-9+\-\s]{7,15}"
+                value="<?php echo htmlspecialchars($_SESSION['partner_phone']); ?>"
+            >
             <div class="error-message" id="error_contact_phone">Please enter a valid phone number (7-15 digits)</div>
         </div>
         
@@ -831,11 +836,6 @@ $conn->close();
                 <?php endforeach; ?>
             </div>
             <div class="error-message" id="error_activities">Please select at least one activity</div>
-        </div>
-
-        <div class="mb-4">
-            <label class="form-label">Activity Importance (Optional)</label>
-            <textarea class="form-control" name="activity_importance" rows="3" placeholder="Describe what makes your activities special..."></textarea>
         </div>
 
         <div class="mb-4">
@@ -941,21 +941,21 @@ $conn->close();
         
         <div class="form-row mb-4">
             <div>
-                <label class="form-label">Price Per Month *</label>
+                <label class="form-label">Price Per Day *</label>
                 <input type="text" class="form-control" name="price_month" id="price_month" placeholder="e.g., 500 QAR" required>
-                <div class="error-message" id="error_price_month">Please enter monthly price</div>
+                <div class="error-message" id="error_price_month">Please enter daily price</div>
             </div>
             <div>
-                <label class="form-label">Price Per Term *</label>
+                <label class="form-label">Price Per Week *</label>
                 <input type="text" class="form-control" name="price_term" id="price_term" placeholder="e.g., 1400 QAR" required>
-                <div class="error-message" id="error_price_term">Please enter term price</div>
+                <div class="error-message" id="error_price_term">Please enter weekly price</div>
             </div>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Price Per Year *</label>
+            <label class="form-label">Price Per Month *</label>
             <input type="text" class="form-control" name="price_year" id="price_year" placeholder="e.g., 5000 QAR" required>
-            <div class="error-message" id="error_price_year">Please enter yearly price</div>
+            <div class="error-message" id="error_price_year">Please enter monthly price</div>
         </div>
 
         <div class="mb-4">

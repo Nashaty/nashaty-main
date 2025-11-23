@@ -10,8 +10,8 @@ if (empty($token)) {
 } else {
     $conn = getDBConnection();
     
-    // Verify token and get partner details
-    $stmt = $conn->prepare("SELECT id, name, email, phone, password FROM partners WHERE unique_token = ? AND is_approved = 1");
+    // Verify token and get partner details - FETCH ALL NEEDED FIELDS
+    $stmt = $conn->prepare("SELECT id, center_name, contact_person, email, phone, password FROM partners WHERE unique_token = ? AND is_approved = 1");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -50,9 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
         $stmt->bind_param("si", $hashed_password, $partner['id']);
         
         if ($stmt->execute()) {
+            // SET ALL SESSION VARIABLES
             $_SESSION['partner_id'] = $partner['id'];
-            $_SESSION['partner_name'] = $partner['name'];
+            $_SESSION['center_name'] = $partner['center_name'];
+            $_SESSION['contact_person'] = $partner['contact_person'];
             $_SESSION['partner_email'] = $partner['email'];
+            $_SESSION['partner_phone'] = $partner['phone'];
             header("Location: partner-dashboard.php");
             exit();
         } else {
@@ -140,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
             padding: 0.75rem;
         }
         
-        /* Tablet styles */
         @media (min-width: 576px) {
             .setup-wrapper {
                 padding: 40px 20px;
@@ -169,7 +171,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
             }
         }
         
-        /* Small mobile optimization */
         @media (max-width: 375px) {
             .setup-card {
                 padding: 25px 15px;
@@ -199,7 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
             }
         }
         
-        /* Landscape mobile */
         @media (max-height: 600px) and (orientation: landscape) {
             .setup-wrapper {
                 padding: 15px;
@@ -251,7 +251,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $partner) {
                 <?php endif; ?>
             <?php elseif ($partner): ?>
                 <div class="info-box">
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($partner['name']); ?></p>
+                    <p><strong>Center Name:</strong> <?php echo htmlspecialchars($partner['center_name']); ?></p>
+                    <p><strong>Contact Person:</strong> <?php echo htmlspecialchars($partner['contact_person']); ?></p>
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($partner['email']); ?></p>
                     <p class="mb-0"><strong>Phone:</strong> <?php echo htmlspecialchars($partner['phone']); ?></p>
                 </div>

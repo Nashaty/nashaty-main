@@ -24,7 +24,7 @@ $parents = $conn->query("
 $contacts = $conn->query("SELECT * FROM contact_submissions ORDER BY created_at DESC LIMIT 20");
 
 // Get partner forms with partner details
-$partner_forms = $conn->query("SELECT pf.*, p.name as partner_name, p.email as partner_email 
+$partner_forms = $conn->query("SELECT pf.*, p.center_name as partner_name, p.email as partner_email
     FROM partner_forms pf 
     JOIN partners p ON pf.partner_id = p.id 
     ORDER BY pf.submitted_at DESC");
@@ -335,7 +335,8 @@ $conn->close();
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Centre Name</th>
+                                        <th>Contact Person</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Submitted</th>
@@ -345,7 +346,8 @@ $conn->close();
                                 <tbody>
                                     <?php while ($partner = $pending_partners->fetch_assoc()): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($partner['name']); ?></td>
+                                        <td><?php echo htmlspecialchars($partner['center_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($partner['contact_person']); ?></td>
                                         <td><?php echo htmlspecialchars($partner['email']); ?></td>
                                         <td><?php echo htmlspecialchars($partner['phone']); ?></td>
                                         <td><?php echo date('M d, Y', strtotime($partner['created_at'])); ?></td>
@@ -373,7 +375,8 @@ $conn->close();
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Centre Name</th>
+                                        <th>Contact Person</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Approved</th>
@@ -384,7 +387,8 @@ $conn->close();
                                 <tbody>
                                     <?php while ($partner = $approved_partners->fetch_assoc()): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($partner['name']); ?></td>
+                                        <td><?php echo htmlspecialchars($partner['center_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($partner['contact_person']); ?></td>
                                         <td><?php echo htmlspecialchars($partner['email']); ?></td>
                                         <td><?php echo htmlspecialchars($partner['phone']); ?></td>
                                         <td><?php echo date('M d, Y', strtotime($partner['approved_at'])); ?></td>
@@ -444,7 +448,6 @@ $conn->close();
                                                 data-phone="<?php echo htmlspecialchars($form['contact_phone']); ?>"
                                                 data-description="<?php echo htmlspecialchars($form['description']); ?>"
                                                 data-activities="<?php echo htmlspecialchars($form['activities_offered']); ?>"
-                                                data-importance="<?php echo htmlspecialchars($form['activity_importance']); ?>"
                                                 data-ages="<?php echo htmlspecialchars($form['age_groups']); ?>"
                                                 data-gender="<?php echo htmlspecialchars($form['gender']); ?>"
                                                 data-days="<?php echo htmlspecialchars($form['class_days']); ?>"

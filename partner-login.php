@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $conn = getDBConnection();
         
-        $stmt = $conn->prepare("SELECT id, name, email, password, form_submitted FROM partners WHERE email = ? AND is_approved = 1 AND password IS NOT NULL");
+        // FETCH ALL NEEDED FIELDS INCLUDING contact_person and phone
+        $stmt = $conn->prepare("SELECT id, center_name, contact_person, email, phone, password, form_submitted FROM partners WHERE email = ? AND is_approved = 1 AND password IS NOT NULL");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -27,9 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $partner = $result->fetch_assoc();
             
             if (password_verify($password, $partner['password'])) {
+                // SET ALL SESSION VARIABLES
                 $_SESSION['partner_id'] = $partner['id'];
-                $_SESSION['partner_name'] = $partner['name'];
+                $_SESSION['center_name'] = $partner['center_name'];
+                $_SESSION['contact_person'] = $partner['contact_person'];
                 $_SESSION['partner_email'] = $partner['email'];
+                $_SESSION['partner_phone'] = $partner['phone'];
+                $_SESSION['form_submitted'] = $partner['form_submitted'];
                 header("Location: partner-dashboard.php");
                 exit();
             } else {
@@ -106,7 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-decoration: underline;
         }
         
-        /* Tablet and larger */
         @media (min-width: 576px) {
             .login-wrapper {
                 padding: 40px 20px;
@@ -133,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        /* Small mobile optimization */
         @media (max-width: 375px) {
             .login-card {
                 padding: 25px 15px;
@@ -166,7 +169,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        /* Landscape mobile */
         @media (max-height: 600px) and (orientation: landscape) {
             .login-wrapper {
                 padding: 15px;
@@ -199,7 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        /* Ensure proper word wrapping */
         .alert {
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -211,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-card">
             <div class="text-center mb-4">
                 <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
-                <h2 class="mt-3">Register your interest </h2>
+                <h2 class="mt-3">Partner Login</h2>
             </div>
             
             <?php if ($error): ?>

@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parent Registration - Nashaty</title>
+    <link rel="stylesheet" href="animation.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -262,14 +263,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
+    <div class="page-transition-overlay"></div>
+  <div class="page-wrapper">
+    
     <div class="registration-wrapper">
         <div class="registration-card">
             <?php if ($success): ?>
                 <div class="success-card">
                     <div class="success-icon">✓</div>
                     <h2 class="mb-4">Thank You!</h2>
-                    <p class="mb-4">Your registration was successful. We're excited to help you find the perfect activities for your kids.</p>
-                    <a href="parent-activity-form.php" class="btn growth-btn">Help us find suitable activities</a>
+                    <p class="mb-4">Your registration was successful.</p>
+                    <a href="parent-activity-form.php" class="btn growth-btn">Register Your Interest</a>
                     <br><br>
                     <a href="index.html" class="btn btn-outline-secondary">Back to Home</a>
                 </div>
@@ -364,4 +368,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     })();
     </script>
 </body>
+</div>
 </html>

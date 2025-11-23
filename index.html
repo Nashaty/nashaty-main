@@ -24,6 +24,7 @@
 </head>
 
 <body>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container flex-column flex-lg-row text-center">
@@ -53,14 +54,19 @@
                             .reachout-box {
                                 width: 100% !important;
                             }
-/* 
+
+                            
                             .button-row {
-                                justify-content: space-evenly !important;
-                            } */
+            display: flex !important;
+            justify-content: center !important;
+            flex-direction: column !important; /* FIXED */
+            gap: 18px !important;
+            
+        }
                         }
                     </style>
 
-                    <div class="reachout-box" style="width: 290px; text-align: center;">
+                    <div class="reachout-box" style="width: 450px; text-align: center;">
                         <a href="javascript:void(0)" class="btn growth-btn" data-bs-toggle="modal"
                             data-bs-target="#reachOutModal">
                             Reach Out
@@ -68,9 +74,11 @@
 
                         <div class="button-row ms-lg-auto mt-3" style="display: flex; justify-content: space-evenly;">
                             <a href="parent-register.php" class="btn growth-btn"
-                                style="background: #a74fec; color: white; border-style: none; padding-left: 12px; padding-right: 12px;">book Activities</a>
+                                style="background: #a74fec; color: white; border-style: none; padding-left: 12px; padding-right: 12px;">customer
+                                portal</a>
                             <a href="partner-register.php" class="btn growth-btn"
-                                style="background: #6abaed; color: white; border-style: none; padding-left: 12px; padding-right: 12px; margin-left: 10px;">Partners</a>
+                                style="background: #6abaed; color: white; border-style: none; padding-left: 12px; padding-right: 12px;">become
+                                a Nashaty partner</a>
                         </div>
                         <!-- <a href="https://wa.me/97433793376" target="_blank" class="btn growth-btn mt-3">
                             Get in touch via call
@@ -116,14 +124,14 @@
                                 Get in touch via WhatsApp
                             </button>
 
-                            <button type="button"
+                            <!-- <button type="button"
                                 style="background: linear-gradient(135deg, #a74fec 0%, #8e3dd4 100%); color: white; padding: 18px 35px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(167, 79, 236, 0.3); transition: all 0.3s ease; text-decoration: none; flex: 1; min-width: 280px;"
                                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(167, 79, 236, 0.4)'"
                                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(167, 79, 236, 0.3)'"
                                 id="showFormBtn">
                                 <i class="bi bi-envelope" style="margin-right: 0.75rem; font-size: 1.3rem;"></i>Reach US
                                 Out - We'll Contact You
-                            </button>
+                            </button> -->
                         </div>
                     </div>
 

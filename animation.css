@@ -1,0 +1,44 @@
+/* ============================================
+   SMOOTH FADE PAGE TRANSITION (NO SCROLL ISSUE)
+   ============================================ */
+
+/* Hide scrollbars during animation */
+body {
+    overflow-x: hidden;
+}
+
+/* Page fade overlay (hidden by default) */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black; /* background color between transitions */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.4s ease;
+}
+
+/* When active (fading out) */
+.page-transition-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fade-in animation for page content */
+.page-wrapper {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: none;
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

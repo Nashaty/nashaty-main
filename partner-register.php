@@ -5,20 +5,25 @@ $error = '';
 $success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = sanitizeInput($_POST['name']);
+    $center_name = sanitizeInput($_POST['center_name']);
+    $contact_person = sanitizeInput($_POST['contact_person']);
     $email = sanitizeInput($_POST['email']);
     $phone = sanitizeInput($_POST['phone']);
 
-    if (empty($name) || empty($email) || empty($phone)) {
+    if (empty($center_name) || empty($contact_person) || empty($email) || empty($phone)) {
         $error = 'All fields are required.';
-    } elseif (strlen($name) < 3) {
-        $error = 'Name must be at least 3 characters long.';
+    } elseif (strlen($center_name) < 3) {
+        $error = 'Center name must be at least 3 characters long.';
+    } elseif (strlen($contact_person) < 3) {
+        $error = 'Contact person name must be at least 3 characters long.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
     } elseif (!preg_match("/^[0-9\s()]{8,15}$/", $phone)) {
         $error = 'Invalid phone number format.';
     } else {
         $conn = getDBConnection();
+
+        // Check existing email
         $stmt = $conn->prepare("SELECT id FROM partners WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -27,19 +32,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             $error = 'This email is already registered.';
         } else {
-            $stmt = $conn->prepare("INSERT INTO partners (name, email, phone, is_approved) VALUES (?, ?, ?, 0)");
-            $stmt->bind_param("sss", $name, $email, $phone);
+            // Insert new partner
+            $stmt = $conn->prepare("
+                INSERT INTO partners (center_name, contact_person, email, phone, is_approved)
+                VALUES (?, ?, ?, ?, 0)
+            ");
+            $stmt->bind_param("ssss", $center_name, $contact_person, $email, $phone);
+
             if ($stmt->execute()) {
                 $success = true;
             } else {
                 $error = 'Registration failed. Please try again.';
             }
         }
+
         $stmt->close();
         $conn->close();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Partner Registration - Nashaty</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animation.css">
+
     <style>
         .registration-wrapper {
             min-height: 100vh;
@@ -344,6 +358,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
+    <div class="page-transition-overlay"></div>
+    <div class="page-wrapper">
     <div class="registration-wrapper">
         <div class="registration-card">
             <?php if ($success): ?>
@@ -380,8 +396,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <form id="registrationForm" method="POST" action="" novalidate>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Center Name / Contact Person</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <label for="center_name" class="form-label">Center Name</label>
+                        <input type="text" class="form-control" id="center_name" name="center_name" required>
+                        <div class="invalid-feedback">Please enter at least 3 characters.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact_person" class="form-label">Contact Person</label>
+                        <input type="text" class="form-control" id="contact_person" name="contact_person" required>
                         <div class="invalid-feedback">Please enter at least 3 characters.</div>
                     </div>
                     <div class="mb-3">
@@ -410,53 +431,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     (function () {
         'use strict';
         const form = document.getElementById('registrationForm');
-        const nameInput = document.getElementById('name');
+        const centerName = document.getElementById('center_name');
+        const contactPerson = document.getElementById('contact_person');
         const phoneInput = document.getElementById('phone');
 
         // Prevent invalid characters in phone input
-        phoneInput.addEventListener('keypress', function (e) {
-            const allowed = /[0-9+\-\s()]/;
-            if (!allowed.test(e.key)) {
-                e.preventDefault();
-            }
-        });
+        centerName.addEventListener('input', function () {
+    centerName.classList.remove('is-invalid', 'is-valid');
+});
 
-        // Remove error dynamically when user types enough characters
-        nameInput.addEventListener('input', function () {
-            if (nameInput.value.trim().length >= 3) {
-                nameInput.classList.remove('is-invalid');
-            }
-        });
+contactPerson.addEventListener('input', function () {
+    contactPerson.classList.remove('is-invalid', 'is-valid');
+});
 
-        // Form submission validation
-        form.addEventListener('submit', function (event) {
-            let isValid = true;
+email.addEventListener('input', function () {
+    email.classList.remove('is-invalid', 'is-valid');
+});
 
-            // Name validation
-            if (nameInput.value.trim().length < 3) {
-                nameInput.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                nameInput.classList.remove('is-invalid');
-            }
+phoneInput.addEventListener('input', function () {
+    phoneInput.classList.remove('is-invalid', 'is-valid');
+});
 
-            // Phone validation pattern
-            const phoneRegex = /^[0-9+\-\s()]{8,15}$/;
-            if (!phoneRegex.test(phoneInput.value.trim())) {
-                phoneInput.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                phoneInput.classList.remove('is-invalid');
-            }
 
-            if (!form.checkValidity() || !isValid) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+     // Form submission validation
+form.addEventListener('submit', function (event) {
+    let isValid = true;
 
-            form.classList.add('was-validated');
-        }, false);
+    // Always reset previous validation states
+    [centerName, contactPerson, phoneInput, email].forEach(field => {
+        field.classList.remove('is-invalid');
+        field.classList.remove('is-valid');
+    });
+
+    // Center Name
+    if (centerName.value.trim().length < 3) {
+        centerName.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        centerName.classList.add('is-valid');
+    }
+
+    // Contact Person
+    if (contactPerson.value.trim().length < 3) {
+        contactPerson.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        contactPerson.classList.add('is-valid');
+    }
+
+    // Email
+    if (!email.checkValidity()) {
+        email.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        email.classList.add('is-valid');
+    }
+
+    // Phone
+    const phoneRegex = /^[0-9+\-\s()]{8,15}$/;
+    if (!phoneRegex.test(phoneInput.value.trim())) {
+        phoneInput.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        phoneInput.classList.add('is-valid');
+    }
+
+    // Stop form submission if invalid
+    if (!isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    form.classList.add('was-validated');
+}, false);
+
     })();
     </script>
 </body>
+</div>
 </html>

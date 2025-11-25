@@ -982,7 +982,8 @@ $conn->close();
         </div>
         
         <div class="mb-4">
-            <p style="font-size: 0.9rem; line-height: 1.6;">By ticking this box, you acknowledge and agree to the following terms and conditions concerning your use of the Nahsaty service. This service provides a concierge-style manual matching of your offered activities with customer preferences. You understand and accept that Nahsaty does not guarantee, warrant, or promise any specific number of customer referrals, or any customer referrals at all. The provision of customer leads is entirely dependent on customer interest, preferences, and final decisions, which are not influenced or controlled by Nahsaty. This service is currently being offered on a limited, complimentary basis as part of a soft launch. Nahsaty reserves the right to introduce a formal contract and apply service charges at a later date and will notify all registered service providers accordingly. By proceeding, you agree to waive any and all claims, demands, liabilities, and causes of action and fully release Nahsaty, its parent companies, subsidiaries, affiliates, and its and their respective officers, directors, employees, agents, and contractors.</p>
+            <!-- <p style="font-size: 0.9rem; line-height: 1.6;">By ticking this box, you acknowledge and agree to the following terms and conditions concerning your use of the Nahsaty service. This service provides a concierge-style manual matching of your offered activities with customer preferences. You understand and accept that Nahsaty does not guarantee, warrant, or promise any specific number of customer referrals, or any customer referrals at all. The provision of customer leads is entirely dependent on customer interest, preferences, and final decisions, which are not influenced or controlled by Nahsaty. This service is currently being offered on a limited, complimentary basis as part of a soft launch. Nahsaty reserves the right to introduce a formal contract and apply service charges at a later date and will notify all registered service providers accordingly. By proceeding, you agree to waive any and all claims, demands, liabilities, and causes of action and fully release Nahsaty, its parent companies, subsidiaries, affiliates, and its and their respective officers, directors, employees, agents, and contractors.</p> -->
+             <p>we’re updating our terms and conditions</p>
             <div class="checkbox-item mb-3">
                 <input type="checkbox" class="form-check-input" name="terms_ack" id="terms_ack" required>
                 <label for="terms_ack">I acknowledge and agree to the above terms & conditions *</label>
@@ -1006,7 +1007,8 @@ $conn->close();
         </div>
 
         <div class="mb-4">
-            <p style="font-size: 0.9rem; line-height: 1.6;">By ticking this box, you agree to treat all terms and conditions of this service as strictly confidential and not to disclose them to any third party without the express written consent of Nahsaty.</p>
+            <!-- <p style="font-size: 0.9rem; line-height: 1.6;">By ticking this box, you agree to treat all terms and conditions of this service as strictly confidential and not to disclose them to any third party without the express written consent of Nahsaty.</p> -->
+             <p>we’re updating our terms and conditions</p>
             <div class="checkbox-item">
                 <input type="checkbox" class="form-check-input" name="confidentiality_ack" id="confidentiality_ack" required>
                 <label for="confidentiality_ack">I agree to above confidentiality terms *</label>

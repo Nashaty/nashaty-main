@@ -381,8 +381,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php else: ?>
                 <div class="text-center mb-4">
                     <img src="./assets/images/logo.png" alt="Nashaty Logo" class="logo-img">
-                    <h2 class="mt-3 text-black">Partner Registration</h2>
-                    <h4 class="">Join Nashaty as an Activity Center Partner</h4>
+                    <h2 class="mt-3 text-black">Become a Nashaty partner</h2>
+                    <!-- <h4 class="">Join Nashaty as an Activity Center Partner</h4> -->
                 </div>
 
                 <div class="info-box">

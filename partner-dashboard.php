@@ -771,8 +771,8 @@ $conn->close();
     <!-- Section 1: Basic Information -->
     <div class="form-section active" data-section="1">
         <div class="section-header">
-            <h4>📋 Basic Information</h4>
-            <p>Tell us about your center and contact details</p>
+            <h4>📋 Center Information</h4>
+            <p>To help us better connect you please share more information</p>
         </div>
         
         <div class="mb-4">

@@ -273,8 +273,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="success-icon">✓</div>
                     <h2 class="mb-4">Thank You!</h2>
                     <p class="mb-4">Your registration was successful.</p>
-                    <a href="parent-activity-form.php" class="btn growth-btn">Register Your Interest</a>
-                    <br><br>
+                    <!-- <a href="parent-activity-form.php" class="btn growth-btn">Register Your Interest</a> -->
+                    <!-- <br><br> -->
                     <a href="index.html" class="btn btn-outline-secondary">Back to Home</a>
                 </div>
             <?php else: ?>

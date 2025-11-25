@@ -248,6 +248,60 @@ body {
     margin-bottom: 40px;
 }
 
+.executive-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.executive-card:hover {
+    transform: translateY(-10px);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.executive-img-wrapper {
+    margin-bottom: 20px;
+}
+
+.executive-img-wrapper img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 5px solid white;
+}
+
+.executive-info h4 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.executive-title {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.executive-email {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.executive-email:hover {
+    opacity: 0.8;
+    color: white;
+}
+
 .match-container {
   width: 100%;
   padding: 0; 

@@ -1,0 +1,52 @@
+# =========================
+# Environment files (SECRETS)
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Dependency folders
+# =========================
+/vendor/
+/node_modules/
+
+# =========================
+# Logs & cache
+# =========================
+*.log
+logs/
+cache/
+tmp/
+
+# =========================
+# Uploaded files (if user uploads)
+# =========================
+uploads/
+storage/
+public/uploads/
+
+# =========================
+# OS / Editor junk
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# =========================
+# Build artifacts
+# =========================
+dist/
+build/
+
+# =========================
+# Composer
+# =========================
+composer.lock
+
+# =========================
+# PHPUnit / Tests
+# =========================
+.phpunit.result.cache

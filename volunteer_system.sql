@@ -119,3 +119,39 @@ CREATE TABLE contact_submissions (
     comments TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE advisory_invitations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    unique_token VARCHAR(100) UNIQUE NOT NULL,
+    status ENUM('pending', 'completed', 'expired') DEFAULT 'pending',
+    invited_by INT NOT NULL,
+    invited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    completed_at TIMESTAMP NULL,
+    expires_at DATETIME NOT NULL,
+    INDEX idx_token (unique_token),
+    INDEX idx_email (email),
+    FOREIGN KEY (invited_by) REFERENCES admin_users(id) ON DELETE CASCADE
+);
+
+
+-- Advisors table
+CREATE TABLE advisors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    invitation_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    address TEXT,
+    city VARCHAR(100),
+    country VARCHAR(100),
+    expertise TEXT,
+    nda_agreed TINYINT(1) DEFAULT 0,
+    terms_agreed TINYINT(1) DEFAULT 0,
+    nda_agreed_at TIMESTAMP NULL,
+    terms_agreed_at TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    FOREIGN KEY (invitation_id) REFERENCES advisory_invitations(id) ON DELETE CASCADE
+);

@@ -302,6 +302,11 @@ $conn->close();
                 </div>
             </div>
         </div>
+        <div class="text-end mb-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inviteAdvisoryModal" style="background: linear-gradient(135deg, #a74fec 0%, #6abaed 100%); border: none; padding: 12px 30px; font-weight: 600;">
+                <i class="bi bi-person-plus"></i> Invite Advisory
+            </button>
+        </div>
         
         <!-- Navigation Tabs -->
         <ul class="nav nav-tabs" id="adminTab" role="tablist">
@@ -322,6 +327,9 @@ $conn->close();
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button">Contact Forms</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="advisors-tab" data-bs-toggle="tab" data-bs-target="#advisors" type="button">Advisors</button>
             </li>
         </ul>
         
@@ -604,6 +612,50 @@ $conn->close();
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="advisors" role="tabpanel">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Advisory Board Members</h4>
+            <div class="table-responsive">
+                <table class="table table-hover" id="advisorsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Expertise</th>
+                            <th>Registered</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="advisorsTableBody">
+                        <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h5 class="mt-4">Pending Invitations</h5>
+            <div class="table-responsive">
+                <table class="table table-hover" id="invitationsTable">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Invited By</th>
+                            <th>Invited At</th>
+                            <th>Expires At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invitationsTableBody">
+                        <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
     
@@ -655,6 +707,36 @@ $conn->close();
             </div>
         </div>
     </div>
+    <div class="modal fade" id="inviteAdvisoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #a74fec 0%, #6abaed 100%); color: white;">
+                <h5 class="modal-title">Invite Advisory Member</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="inviteAdvisoryForm">
+                    <div class="mb-3">
+                        <label for="advisoryEmail" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="advisoryEmail" name="email" required 
+                               placeholder="Enter advisor's email address">
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+                    <div class="alert alert-info">
+                        <small>An invitation link will be sent to this email address. The link will expire in 7 days.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="sendInviteBtn" 
+                        style="background: linear-gradient(135deg, #a74fec 0%, #6abaed 100%); border: none;">
+                    Send Invitation
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -989,5 +1071,221 @@ $conn->close();
             });
         });
     </script>
+    
+<script>
+// Send Advisory Invitation
+document.getElementById('sendInviteBtn').addEventListener('click', function() {
+    const form = document.getElementById('inviteAdvisoryForm');
+    const email = document.getElementById('advisoryEmail').value;
+    
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+    
+    const btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+    
+    fetch('admin-invite-advisor.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'email=' + encodeURIComponent(email)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Invitation sent successfully!\n\nInvitation link: ' + data.link);
+            bootstrap.Modal.getInstance(document.getElementById('inviteAdvisoryModal')).hide();
+            form.reset();
+            form.classList.remove('was-validated');
+            loadInvitations();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        alert('Error sending invitation: ' + error);
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Invitation';
+    });
+});
+
+// Load Advisors
+function loadAdvisors() {
+    fetch('admin-get-advisors.php')
+    .then(response => response.json())
+    .then(advisors => {
+        const tbody = document.getElementById('advisorsTableBody');
+        if (advisors.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center">No advisors registered yet</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = advisors.map(advisor => `
+            <tr>
+                <td>${advisor.name}</td>
+                <td>${advisor.email}</td>
+                <td>${advisor.phone}</td>
+                <td>${advisor.city || 'N/A'}</td>
+                <td>${advisor.expertise ? advisor.expertise.substring(0, 50) + '...' : 'N/A'}</td>
+                <td>${new Date(advisor.created_at).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary btn-view-details view-advisor-detail" 
+                            data-id="${advisor.id}">
+                        View Details
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+        
+        // Add event listeners for view details
+        document.querySelectorAll('.view-advisor-detail').forEach(btn => {
+            btn.addEventListener('click', function() {
+                viewAdvisorDetail(this.dataset.id);
+            });
+        });
+    });
+}
+
+// Load Invitations
+function loadInvitations() {
+    fetch('admin-get-invitations.php')
+    .then(response => response.json())
+    .then(invitations => {
+        const tbody = document.getElementById('invitationsTableBody');
+        if (invitations.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">No pending invitations</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = invitations.map(inv => {
+            const status = inv.status === 'pending' ? 
+                '<span class="badge bg-warning">Pending</span>' : 
+                inv.status === 'completed' ? 
+                '<span class="badge bg-success">Completed</span>' : 
+                '<span class="badge bg-danger">Expired</span>';
+            
+            const inviteLink = '<?php echo SITE_URL; ?>/advisor-register.php?token=' + inv.unique_token;
+            
+            return `
+                <tr>
+                    <td>${inv.email}</td>
+                    <td>${status}</td>
+                    <td>${inv.invited_by_name}</td>
+                    <td>${new Date(inv.invited_at).toLocaleDateString()}</td>
+                    <td>${new Date(inv.expires_at).toLocaleDateString()}</td>
+                    <td>
+                        ${inv.status === 'pending' ? 
+                            `<button class="btn btn-sm btn-info" onclick="copyInviteLink('${inviteLink}')">Copy Link</button>` : 
+                            '-'}
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    });
+}
+
+function copyInviteLink(link) {
+    navigator.clipboard.writeText(link).then(() => {
+        alert('Invitation link copied to clipboard!');
+    });
+}
+
+function viewAdvisorDetail(id) {
+    fetch('admin-get-advisor-detail.php?id=' + id)
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+            return;
+        }
+        
+        const html = `
+            <div class="detail-section">
+                <div class="detail-section-title">
+                    <span class="icon">👤</span>
+                    <span>Personal Information</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Name</div>
+                        <div class="detail-value">${data.name}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">${data.email}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">${data.phone}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">City</div>
+                        <div class="detail-value">${data.city || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Country</div>
+                        <div class="detail-value">${data.country || 'N/A'}</div>
+                    </div>
+                </div>
+                ${data.address ? `
+                <div class="detail-item" style="margin-top: 15px;">
+                    <div class="detail-label">Address</div>
+                    <div class="detail-value">${data.address}</div>
+                </div>` : ''}
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-section-title">
+                    <span class="icon">🎯</span>
+                    <span>Expertise</span>
+                </div>
+                <div class="highlight-box">
+                    <div class="detail-value">${data.expertise || 'No expertise information provided'}</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-section-title">
+                    <span class="icon">✅</span>
+                    <span>Agreements</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">NDA Agreement</div>
+                        <div class="detail-value">
+                            <span class="indicator ${data.nda_agreed ? 'yes' : 'no'}">
+                                ${data.nda_agreed ? 'Agreed' : 'Not Agreed'}
+                            </span>
+                        </div>
+                        ${data.nda_agreed_at ? `<small class="text-muted">Agreed on: ${new Date(data.nda_agreed_at).toLocaleDateString()}</small>` : ''}
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Terms & Conditions</div>
+                        <div class="detail-value">
+                            <span class="indicator ${data.terms_agreed ? 'yes' : 'no'}">
+                                ${data.terms_agreed ? 'Agreed' : 'Not Agreed'}
+                            </span>
+                        </div>
+                        ${data.terms_agreed_at ? `<small class="text-muted">Agreed on: ${new Date(data.terms_agreed_at).toLocaleDateString()}</small>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('advisorDetailContent').innerHTML = html;
+        new bootstrap.Modal(document.getElementById('advisorDetailModal')).show();
+    });
+}
+
+// Load advisors and invitations when Advisors tab is clicked
+document.getElementById('advisors-tab').addEventListener('click', function() {
+    loadAdvisors();
+    loadInvitations();
+});
+</script>
 </body>
 </html>
